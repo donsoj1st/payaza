@@ -23,6 +23,25 @@ export class UserService {
     userDto.password = await bcrypt.hash(userDto.password, 10);
 
     const NewUser = new this.userModel(userDto);
-    return NewUser;
+    return await NewUser.save();
+  }
+  findAll() {
+    return `This action returns all notification`;
+  }
+
+  async findUserByEmail(email: string): Promise<any> {
+    console.log('details: ', email);
+    return await this.userModel.findOne({ email });
+  }
+  async findOne(id: string) {
+    return await this.userModel.findById(id);
+  }
+
+  update(id: string) {
+    return `This action updates a #${id} notification`;
+  }
+
+  remove(id: string) {
+    return `This action removes a #${id} notification`;
   }
 }
