@@ -15,7 +15,7 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // configuration for swagger documentation
+  // configuration for swagger documentation made
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Guarantee Application')
