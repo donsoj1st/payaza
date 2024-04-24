@@ -39,4 +39,8 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async verifyotp(otp: string) {
+    return await this.userService.verifyUser(otp);
+  }
 }

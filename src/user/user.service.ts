@@ -4,6 +4,7 @@ import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import { userDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
+import generateOTP from 'src/util/otp-generator';
 
 @Injectable()
 export class UserService {
@@ -22,8 +23,19 @@ export class UserService {
 
     userDto.password = await bcrypt.hash(userDto.password, 10);
 
-    const NewUser = new this.userModel(userDto);
-    return await NewUser.save();
+    let otp = generateOTP();
+
+    // this will check if the opt exist.
+    while (await this.findOtp(otp)) {
+      console.log(otp);
+      otp = generateOTP();
+    }
+    const NewUser = new this.userModel({ ...userDto, otp });
+    await NewUser.save();
+
+    //email will be dispatch.
+
+    return NewUser;
   }
   findAll() {
     return `This action returns all notification`;
@@ -43,5 +55,22 @@ export class UserService {
 
   remove(id: string) {
     return `This action removes a #${id} notification`;
+  }
+
+  async findOtp(opt: string) {
+    return await this.userModel.findOne({ opt });
+  }
+
+  async verifyUser(otp: string) {
+    try {
+      console.log(otp);
+      const user = await this.userModel.findOne({ otp });
+      user.verify = true;
+      user.otp = null;
+      await user.save();
+      return true;
+    } catch (error) {
+      return { error, message: 'unable to verify user' };
+    }
   }
 }
