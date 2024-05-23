@@ -8,6 +8,7 @@ import { NotificationModule } from './notification/notification.module';
 import { AuthModule } from './auth/auth.module';
 import { RequestModule } from './request/request.module';
 import { ApplicationModule } from './application/application.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ApplicationModule } from './application/application.module';
     AuthModule,
     RequestModule,
     ApplicationModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
