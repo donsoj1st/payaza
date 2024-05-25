@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsPhoneNumber,
   IsString,
   Matches,
   MaxLength,
@@ -39,7 +40,7 @@ export class userDto {
   @MinLength(2)
   last_name: string;
 
-  @IsNumber()
+  @IsPhoneNumber()
   @IsNotEmpty()
   phone_number: number;
 
