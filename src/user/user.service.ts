@@ -18,7 +18,6 @@ export class UserService {
     const userExist = await this.userModel.findOne({
       email: userDto.email.toLocaleLowerCase(),
     });
-    console.log(userExist);
     if (userExist) throw new BadRequestException('User already exists');
 
     userDto.password = await bcrypt.hash(userDto.password, 10);
