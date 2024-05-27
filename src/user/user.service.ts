@@ -36,8 +36,8 @@ export class UserService {
 
     return NewUser;
   }
-  findAll() {
-    return `This action returns all notification`;
+  async findAll() {
+    return this.userModel.find().exec();
   }
 
   async findUserByEmail(email: string): Promise<any> {

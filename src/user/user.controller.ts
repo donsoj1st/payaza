@@ -12,4 +12,8 @@ export class UserController {
   async signUp(@Body() userData: userDto): Promise<any> {
     return this.userService.SignUp(userData);
   }
+  @Get()
+  async getUser(): Promise<any> {
+    return await this.userService.findAll();
+  }
 }
