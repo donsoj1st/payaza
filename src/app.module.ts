@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { RequestModule } from './request/request.module';
 import { ApplicationModule } from './application/application.module';
 import { PaymentModule } from './payment/payment.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PaymentModule } from './payment/payment.module';
     RequestModule,
     ApplicationModule,
     PaymentModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

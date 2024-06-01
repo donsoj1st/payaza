@@ -5,10 +5,14 @@ import { Model } from 'mongoose';
 import { userDto } from './dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import generateOTP from 'src/util/otp-generator';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private mailService: MailService,
+  ) {}
 
   async SignUp(userDto: userDto): Promise<any> {
     //change the user email to lowercase for uniformity
@@ -33,6 +37,26 @@ export class UserService {
     await NewUser.save();
 
     //email will be dispatch.
+    // Send email to user
+    await this.mailService.send({
+      from: {
+        email: 'info@frowork.com',
+        name: 'Frowork',
+      },
+      personalizations: [
+        {
+          to: [
+            {
+              email: NewUser.email,
+            },
+          ],
+          dynamicTemplateData: {
+            otp,
+          },
+        },
+      ],
+      templateId: 'd-1830273e07f84125b308c49c0102b009',
+    });
 
     return NewUser;
   }
