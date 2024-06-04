@@ -40,8 +40,8 @@ export class UserService {
     // Send email to user
     await this.mailService.send({
       from: {
-        email: 'info@frowork.com',
-        name: 'Frowork',
+        email: 'donsoj1st@gmail.com',
+        name: 'donsoj1st',
       },
       personalizations: [
         {
@@ -55,8 +55,10 @@ export class UserService {
           },
         },
       ],
-      templateId: 'd-1830273e07f84125b308c49c0102b009',
+      templateId: 'd-ba498c28febe4a47abde42bfe824b529',
     });
+
+    console.log(NewUser.email);
 
     return NewUser;
   }
