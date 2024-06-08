@@ -93,7 +93,7 @@ export class UserService {
       user.verify = true;
       user.otp = null;
       await user.save();
-      return true;
+      return { message: true };
     } catch (error) {
       return { error, message: 'unable to verify user' };
     }
