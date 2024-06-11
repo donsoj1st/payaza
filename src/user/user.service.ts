@@ -67,7 +67,6 @@ export class UserService {
   }
 
   async findUserByEmail(email: string): Promise<any> {
-    console.log('details: ', email);
     return await this.userModel.findOne({ email: email.toLowerCase() });
   }
   async findOne(id: string) {

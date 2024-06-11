@@ -27,18 +27,17 @@ export class AuthService {
       return null;
     }
     const checkPassword = await bcrypt.compare(pass, user.password);
-    console.log('check password: ', checkPassword);
     if (!checkPassword) {
       return null;
     }
     if (checkPassword) {
       const { password, ...result } = user;
-      return result;
+      return result['_doc'];
     }
   }
 
   async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
+    const payload = { username: user.email, sub: user._id };
     return {
       access_token: this.jwtService.sign(payload),
     };

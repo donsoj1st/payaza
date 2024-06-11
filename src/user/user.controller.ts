@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { userDto } from './dto/user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('users')
 @Controller('user')
@@ -15,6 +24,15 @@ export class UserController {
   @Get()
   async getUser(): Promise<any> {
     return await this.userService.findAll();
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('current_user')
+  async getCurrentUser(@Req() req: any): Promise<any> {
+    try {
+      return await this.userService.findOne(req.user.userId);
+    } catch (error) {
+      return error;
+    }
   }
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<any> {
