@@ -73,8 +73,15 @@ export class UserService {
     return await this.userModel.findById(id);
   }
 
-  update(id: string) {
-    return `This action updates a #${id} notification`;
+  async update(id: string, updateUserDto) {
+    return await this.userModel.findByIdAndUpdate(
+      id,
+      { ...updateUserDto },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
   }
 
   remove(id: string) {
