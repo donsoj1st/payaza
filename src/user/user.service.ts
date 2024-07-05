@@ -84,8 +84,8 @@ export class UserService {
     );
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} notification`;
+  async remove(id: string) {
+    return await this.userModel.findByIdAndDelete(id);
   }
 
   async findOtp(opt: string) {
