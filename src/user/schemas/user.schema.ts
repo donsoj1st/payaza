@@ -32,6 +32,36 @@ export class User {
 
   @Prop({})
   refreshToken: string;
+
+  @Prop({ default: null })
+  officeTitle: string;
+
+  @Prop({ default: null })
+  dessignation: string;
+
+  @Prop({ default: null })
+  companyName: string;
+
+  @Prop({ default: null })
+  numberOfEmployee: string;
+
+  @Prop({ default: null })
+  companyWebsite: string;
+
+  @Prop({ default: null })
+  Country: string;
+
+  @Prop({ default: null })
+  state: string;
+
+  @Prop({ default: null })
+  city: string;
+
+  @Prop({ default: null })
+  profile: string;
+
+  @Prop({ default: null })
+  documents: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
