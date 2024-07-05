@@ -62,6 +62,9 @@ export class User {
 
   @Prop({ default: null })
   documents: string;
+
+  @Prop([{ type: String }])
+  skills: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
