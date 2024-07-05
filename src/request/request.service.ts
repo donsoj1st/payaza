@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Request } from './schemas/request.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class RequestService {
-  create(createRequestDto: CreateRequestDto) {
-    return 'This action adds a new request';
+  constructor(
+    @InjectModel(Request.name) private userRequestModel: Model<Request>,
+  ) {}
+
+  async create(createRequestDto: CreateRequestDto) {
+    const newRequest = await new this.userRequestModel(createRequestDto);
+
+    return await newRequest.save();
   }
 
-  findAll() {
-    return `This action returns all request`;
+  async findAll() {
+    return this.userRequestModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} request`;
+  async findOne(id: string) {
+    return await this.userRequestModel.findById(id);
   }
 
-  update(id: number, updateRequestDto: UpdateRequestDto) {
-    return `This action updates a #${id} request`;
+  async findByUserId(userId: string) {
+    return await this.userRequestModel.findOne({ user: userId });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} request`;
+  async update(id: string, updateRequestDto: UpdateRequestDto) {
+    return await this.userRequestModel.findByIdAndUpdate(id, updateRequestDto, {
+      new: true,
+      runValidators: true,
+    });
+  }
+
+  async remove(id: string) {
+    return await this.userRequestModel.findByIdAndDelete(id);
   }
 }
