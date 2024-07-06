@@ -49,6 +49,10 @@ export class UpdateUserDto extends PartialType(userDto) {
   @IsString()
   @IsOptional()
   documents: string;
+
   @IsOptional()
   skills: string[];
+
+  @IsOptional()
+  dateOfBirth: Date;
 }

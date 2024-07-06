@@ -27,6 +27,9 @@ export class User {
   @Prop({ default: null })
   otp: string;
 
+  @Prop({ default: null })
+  dateOfBirth: Date;
+
   @Prop({ default: false })
   verify: boolean;
 

@@ -10,6 +10,7 @@ import { RequestModule } from './request/request.module';
 import { ApplicationModule } from './application/application.module';
 import { PaymentModule } from './payment/payment.module';
 import { MailModule } from './mail/mail.module';
+import { HttpResModule } from './http-res/http-res.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MailModule } from './mail/mail.module';
     ApplicationModule,
     PaymentModule,
     MailModule,
+    HttpResModule,
   ],
   controllers: [AppController],
   providers: [AppService],
